@@ -26,8 +26,11 @@ function defaultVirtualAgentAutoResponses(): GatewaySettings["virtualAgentAutoRe
 }
 
 function defaultSettings(): GatewaySettings {
+  const envBaseUrl = process.env.GATEWAY_BASE_URL?.trim();
   return {
-    baseUrl: "http://localhost:3000",
+    baseUrl: envBaseUrl
+      ? envBaseUrl.replace(/\/$/, "")
+      : "http://localhost:3000",
     virtualAgentSecret: generateSecret(),
     crmSecret: generateSecret(),
     oauth: {

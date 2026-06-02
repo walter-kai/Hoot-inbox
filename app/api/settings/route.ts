@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSettings, updateSettings } from "@/lib/store";
+import { updateSettings } from "@/lib/store";
+import { getPublicSettings } from "@/lib/public-settings";
 import type { GatewaySettings } from "@/lib/hootsuite/types";
 
-export async function GET() {
-  return NextResponse.json(getSettings());
+export async function GET(request: NextRequest) {
+  return NextResponse.json(getPublicSettings(request));
 }
 
 export async function PUT(request: NextRequest) {
