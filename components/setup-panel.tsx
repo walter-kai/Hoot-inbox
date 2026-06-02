@@ -61,8 +61,8 @@ export function SetupPanel({ settings, onSave }: SetupPanelProps) {
       <CardHeader>
         <CardTitle>Setup</CardTitle>
         <CardDescription>
-          Configure these URLs and secrets in Hootsuite Inbox 2.0. Use ngrok or
-          similar for HTTPS in local development.
+          Copy these webhook URLs into Hootsuite Inbox 2.0. Shared secrets are
+          configured in Hootsuite only.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -96,37 +96,6 @@ export function SetupPanel({ settings, onSave }: SetupPanelProps) {
               label="CRM Write Back URL"
               value={`${base}/api/webhooks/crm/writeback`}
             />
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-1">
-              <Label htmlFor="virtualAgentSecret">Virtual Agent Shared Secret</Label>
-              <Input
-                id="virtualAgentSecret"
-                value={draft.virtualAgentSecret}
-                onChange={(e) =>
-                  setDraft({ ...draft, virtualAgentSecret: e.target.value })
-                }
-                className="font-mono text-xs"
-              />
-              <p className="text-muted-foreground text-xs">
-                Copy this into Hootsuite Virtual Agent settings.
-              </p>
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="crmSecret">CRM Shared Secret</Label>
-              <Input
-                id="crmSecret"
-                value={draft.crmSecret}
-                onChange={(e) =>
-                  setDraft({ ...draft, crmSecret: e.target.value })
-                }
-                className="font-mono text-xs"
-              />
-              <p className="text-muted-foreground text-xs">
-                Copy this into Hootsuite CRM integration settings.
-              </p>
-            </div>
           </div>
 
           <div className="space-y-3">

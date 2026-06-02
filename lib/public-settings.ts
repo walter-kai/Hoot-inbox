@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import type { GatewaySettings } from "@/lib/hootsuite/types";
+import { resolveOAuthFromEnv } from "@/lib/env-config";
 import { getSettings } from "@/lib/store";
 
 function normalizeBaseUrl(url: string): string {
@@ -29,5 +30,6 @@ export function getPublicSettings(request?: NextRequest): GatewaySettings {
   return {
     ...settings,
     baseUrl: resolveBaseUrl(settings.baseUrl, request),
+    oauth: resolveOAuthFromEnv(settings.oauth),
   };
 }

@@ -41,8 +41,6 @@ export interface VirtualAgentAutoResponseSetting {
 
 export interface GatewaySettings {
   baseUrl: string;
-  virtualAgentSecret: string;
-  crmSecret: string;
   oauth: {
     clientId: string;
     clientSecret: string;

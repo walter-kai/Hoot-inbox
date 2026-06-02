@@ -9,12 +9,9 @@ import type {
   VirtualAgentResponse,
   WebhookEvent,
 } from "@/lib/hootsuite/types";
+import { defaultOAuthFromEnv } from "@/lib/env-config";
 
 const MAX_WEBHOOKS = 500;
-
-function generateSecret(): string {
-  return randomBytes(32).toString("hex");
-}
 
 function defaultVirtualAgentAutoResponses(): GatewaySettings["virtualAgentAutoResponses"] {
   const empty: VirtualAgentResponse = {};
@@ -31,13 +28,7 @@ function defaultSettings(): GatewaySettings {
     baseUrl: envBaseUrl
       ? envBaseUrl.replace(/\/$/, "")
       : "http://localhost:3000",
-    virtualAgentSecret: generateSecret(),
-    crmSecret: generateSecret(),
-    oauth: {
-      clientId: "",
-      clientSecret: "",
-      organizationId: "",
-    },
+    oauth: defaultOAuthFromEnv(),
     virtualAgentAutoResponses: defaultVirtualAgentAutoResponses(),
     crmLookupTemplate: {
       autoConfirm: true,

@@ -7,7 +7,7 @@ A diagnostic webhook gateway for [Hootsuite Inbox 2.0](https://apidocs.hootsuite
 - **Virtual Agent webhooks** — receives `CONVERSATION_STARTED`, `CONVERSATION_DELEGATED`, and `INBOUND_MESSAGE_RECEIVED`; responds with `200 OK` within 10 seconds
 - **CRM webhooks** — lookup, error notifications (`204`), and write-back endpoints
 - **Live webhook list** — polls every 2 seconds, filter by Virtual Agent/CRM
-- **Setup panel** — copy-paste URLs and shared secrets for Hootsuite configuration
+- **Setup panel** — copy webhook URLs into Hootsuite
 - **Virtual Agent REST controls** — manipulate conversation, upload attachments
 - **CRM REST controls** — set contact attributes asynchronously
 - **CRM lookup template** — configure synchronous lookup response, prefill from `CONVERSATION_STARTED` attributes
@@ -38,7 +38,7 @@ Copy the ngrok HTTPS URL into the **Base URL** field in the Setup panel.
 
 1. In Hootsuite Inbox 2.0, go to **Admin settings → Virtual agents → Edit custom virtual agent**
 2. Set **Webhook URL** to `{baseUrl}/api/webhooks/virtual-agent`
-3. Copy the **shared secret** from Hootsuite into the gateway Setup panel (or copy the gateway secret into Hootsuite)
+3. Configure the shared secret in Hootsuite (not in this gateway)
 
 ### CRM Integration
 
@@ -47,7 +47,7 @@ Copy the ngrok HTTPS URL into the **Base URL** field in the Setup panel.
    - **Lookup URL**: `{baseUrl}/api/webhooks/crm/lookup`
    - **Notification URL**: `{baseUrl}/api/webhooks/crm/notifications`
    - **Write Back URL**: `{baseUrl}/api/webhooks/crm/writeback`
-3. Copy the CRM shared secret into the gateway Setup panel
+3. Configure the CRM shared secret in Hootsuite (not in this gateway)
 
 ### OAuth (outbound REST API)
 
@@ -77,7 +77,7 @@ See the [REST API authentication docs](https://apidocs.hootsuite.com/docs/api/in
 ## Notes
 
 - All webhook and settings data is stored **in memory** and clears on server restart
-- Webhook signature verification is not enforced; secrets are shown for configuration reference
+- Webhook signature verification is not enforced in this diagnostic tool
 - Unknown future Virtual Agent event types are logged and acknowledged with `200 {}`
 
 ## License

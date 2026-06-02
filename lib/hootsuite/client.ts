@@ -4,6 +4,7 @@ import {
   getSettings,
   setAccessToken,
 } from "@/lib/store";
+import { resolveOAuthFromEnv } from "@/lib/env-config";
 import type { CrmLookupResponse, VirtualAgentResponse } from "@/lib/hootsuite/types";
 
 const HOOTSUITE_BASE = "https://platform.hootsuite.com";
@@ -14,7 +15,7 @@ export async function fetchAccessToken(): Promise<string> {
     return cached.token;
   }
 
-  const { oauth } = getSettings();
+  const oauth = resolveOAuthFromEnv(getSettings().oauth);
   if (!oauth.clientId || !oauth.clientSecret || !oauth.organizationId) {
     throw new Error(
       "OAuth credentials not configured. Set client_id, client_secret, and organization_id in Settings."
