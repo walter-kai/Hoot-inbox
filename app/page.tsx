@@ -13,13 +13,14 @@ import type {
   ContactContext,
   CrmLookupResponse,
   GatewaySettings,
+  PublicGatewaySettings,
   WebhookEvent,
 } from "@/lib/hootsuite/types";
 
 interface EventsResponse {
   webhooks: WebhookEvent[];
   contactContext: ContactContext[];
-  settings: GatewaySettings;
+  settings: PublicGatewaySettings;
 }
 
 function extractMessageId(webhook: WebhookEvent | null): string | undefined {

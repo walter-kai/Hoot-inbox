@@ -51,11 +51,11 @@ Copy the ngrok HTTPS URL into the **Base URL** field in the Setup panel.
 
 ### OAuth (outbound REST API)
 
-For Virtual Agent and CRM REST API controls, enter your Hootsuite developer app credentials in the Setup panel:
+Set env vars (not shown in the UI):
 
-- Client ID
-- Client Secret
-- Organization ID
+- `HOOTSUITE_CLIENT_ID`
+- `HOOTSUITE_CLIENT_SECRET`
+- `HOOTSUITE_ORGANIZATION_ID`
 
 See the [REST API authentication docs](https://apidocs.hootsuite.com/docs/api/inbox/index.html#section/REST-API-authentication).
 

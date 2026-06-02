@@ -9,6 +9,13 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   const body = (await request.json()) as Partial<GatewaySettings>;
-  const updated = updateSettings(body);
-  return NextResponse.json(updated);
+  const { baseUrl, virtualAgentAutoResponses, crmLookupTemplate } = body;
+  updateSettings({
+    ...(baseUrl !== undefined ? { baseUrl } : {}),
+    ...(virtualAgentAutoResponses !== undefined
+      ? { virtualAgentAutoResponses }
+      : {}),
+    ...(crmLookupTemplate !== undefined ? { crmLookupTemplate } : {}),
+  });
+  return NextResponse.json(getPublicSettings(request));
 }

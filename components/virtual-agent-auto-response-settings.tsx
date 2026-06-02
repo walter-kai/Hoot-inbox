@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import type {
   GatewaySettings,
+  PublicGatewaySettings,
   VirtualAgentEventType,
   VirtualAgentResponse,
 } from "@/lib/hootsuite/types";
@@ -26,8 +27,10 @@ const EVENT_TYPES: VirtualAgentEventType[] = [
 ];
 
 interface VirtualAgentAutoResponseSettingsProps {
-  settings: GatewaySettings;
-  onSave: (settings: Partial<GatewaySettings>) => Promise<void>;
+  settings: PublicGatewaySettings;
+  onSave: (
+    settings: Pick<GatewaySettings, "virtualAgentAutoResponses">,
+  ) => Promise<void>;
 }
 
 export function VirtualAgentAutoResponseSettings({

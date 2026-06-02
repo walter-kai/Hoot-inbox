@@ -53,6 +53,9 @@ export interface GatewaySettings {
   crmLookupTemplate: CrmLookupResponse;
 }
 
+/** Settings exposed to the dashboard — OAuth stays server-side only. */
+export type PublicGatewaySettings = Omit<GatewaySettings, "oauth">;
+
 export interface WebhookEvent {
   id: string;
   receivedAt: string;

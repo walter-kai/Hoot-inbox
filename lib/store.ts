@@ -9,6 +9,7 @@ import type {
   VirtualAgentResponse,
   WebhookEvent,
 } from "@/lib/hootsuite/types";
+import { baseUrlFromRedirectUri } from "@/lib/base-url";
 import { defaultOAuthFromEnv } from "@/lib/env-config";
 
 const MAX_WEBHOOKS = 500;
@@ -24,10 +25,11 @@ function defaultVirtualAgentAutoResponses(): GatewaySettings["virtualAgentAutoRe
 
 function defaultSettings(): GatewaySettings {
   const envBaseUrl = process.env.GATEWAY_BASE_URL?.trim();
+  const fromRedirect = baseUrlFromRedirectUri();
   return {
     baseUrl: envBaseUrl
       ? envBaseUrl.replace(/\/$/, "")
-      : "http://localhost:3000",
+      : (fromRedirect ?? "http://localhost:3000"),
     oauth: defaultOAuthFromEnv(),
     virtualAgentAutoResponses: defaultVirtualAgentAutoResponses(),
     crmLookupTemplate: {

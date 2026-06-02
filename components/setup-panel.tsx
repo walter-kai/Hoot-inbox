@@ -11,11 +11,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { GatewaySettings } from "@/lib/hootsuite/types";
+import type { PublicGatewaySettings } from "@/lib/hootsuite/types";
 
 interface SetupPanelProps {
-  settings: GatewaySettings;
-  onSave: (settings: Partial<GatewaySettings>) => Promise<void>;
+  settings: PublicGatewaySettings;
+  onSave: (settings: Pick<PublicGatewaySettings, "baseUrl">) => Promise<void>;
 }
 
 function CopyField({ label, value }: { label: string; value: string }) {
@@ -50,7 +50,7 @@ export function SetupPanel({ settings, onSave }: SetupPanelProps) {
     e.preventDefault();
     setSaving(true);
     try {
-      await onSave(draft);
+      await onSave({ baseUrl: draft.baseUrl });
     } finally {
       setSaving(false);
     }
@@ -96,46 +96,6 @@ export function SetupPanel({ settings, onSave }: SetupPanelProps) {
               label="CRM Write Back URL"
               value={`${base}/api/webhooks/crm/writeback`}
             />
-          </div>
-
-          <div className="space-y-3">
-            <Label>OAuth Credentials (for outbound REST API calls)</Label>
-            <div className="grid gap-3 md:grid-cols-3">
-              <Input
-                placeholder="Client ID"
-                value={draft.oauth.clientId}
-                onChange={(e) =>
-                  setDraft({
-                    ...draft,
-                    oauth: { ...draft.oauth, clientId: e.target.value },
-                  })
-                }
-              />
-              <Input
-                type="password"
-                placeholder="Client Secret"
-                value={draft.oauth.clientSecret}
-                onChange={(e) =>
-                  setDraft({
-                    ...draft,
-                    oauth: { ...draft.oauth, clientSecret: e.target.value },
-                  })
-                }
-              />
-              <Input
-                placeholder="Organization ID"
-                value={draft.oauth.organizationId}
-                onChange={(e) =>
-                  setDraft({
-                    ...draft,
-                    oauth: {
-                      ...draft.oauth,
-                      organizationId: e.target.value,
-                    },
-                  })
-                }
-              />
-            </div>
           </div>
 
           <Button type="submit" disabled={saving}>
